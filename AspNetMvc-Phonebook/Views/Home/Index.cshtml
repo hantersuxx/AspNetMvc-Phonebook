@@ -1,0 +1,26 @@
+﻿@model IEnumerable<AspNetMvc_Phonebook.Models.Contact>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<table>
+    @foreach (AspNetMvc_Phonebook.Models.Contact c in Model)
+    {
+        <tr class="header">
+            <td><p>@Html.DisplayNameFor(m => m.PhoneNumber)</p></td>
+            <td><p>@Html.DisplayNameFor(m => m.FirstName)</p></td>
+            <td><p>@Html.DisplayNameFor(m => m.LastName)</p></td>
+            <td><p>@Html.DisplayNameFor(m => m.Email)</p></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><p>@c.PhoneNumber</p></td>
+            <td><p>@c.FirstName</p></td>
+            <td><p>@c.LastName</p></td>
+            <td><p>@c.Email</p></td>
+            <td><p><a href="/Home/Edit/@c.Id">Редактировать</a></p></td>
+        </tr>
+    }
+</table>
