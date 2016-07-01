@@ -5,22 +5,32 @@
 }
 
 <h2>Index</h2>
-<table>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name:
+        <input type="text" name="SearchString" id="SearchString" placeholder="Search phonebook..." />
+        <input type="submit" value="Search" placeholder="Search value" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>@Html.ActionLink(Html.DisplayNameFor(m => m.PhoneNumber).ToString(), "Index", new { sortOrder = ViewBag.PhoneNumberSortParam })</th>
+        <th>@Html.ActionLink(Html.DisplayNameFor(m => m.FirstName).ToString(), "Index", new { sortOrder = ViewBag.FirstNameSortParam })</th>
+        <th>@Html.ActionLink(Html.DisplayNameFor(m => m.LastName).ToString(), "Index", new { sortOrder = ViewBag.LastNameSortParam })</th>
+        <th>@Html.ActionLink(Html.DisplayNameFor(m => m.Email).ToString(), "Index", new { sortOrder = ViewBag.EmailSortParam })</th>
+        <th></th>
+    </tr>
     @foreach (AspNetMvc_Phonebook.Models.Contact c in Model)
     {
-        <tr class="header">
-            <td><p>@Html.DisplayNameFor(m => m.PhoneNumber)</p></td>
-            <td><p>@Html.DisplayNameFor(m => m.FirstName)</p></td>
-            <td><p>@Html.DisplayNameFor(m => m.LastName)</p></td>
-            <td><p>@Html.DisplayNameFor(m => m.Email)</p></td>
-            <td></td>
-        </tr>
         <tr>
-            <td><p>@c.PhoneNumber</p></td>
-            <td><p>@c.FirstName</p></td>
-            <td><p>@c.LastName</p></td>
-            <td><p>@c.Email</p></td>
-            <td><p><a href="/Home/Edit/@c.Id">Редактировать</a></p></td>
+            <td>@c.PhoneNumber</td>
+            <td>@c.FirstName</td>
+            <td>@c.LastName</td>
+            <td>@c.Email</td>
+            <td><a href="/Home/Edit/@c.Id">Редактировать</a></td>
         </tr>
     }
 </table>
