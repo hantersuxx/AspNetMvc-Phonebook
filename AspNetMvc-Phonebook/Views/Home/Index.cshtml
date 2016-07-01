@@ -1,4 +1,7 @@
-﻿@model IEnumerable<AspNetMvc_Phonebook.Models.Contact>
+﻿@model PagedList.IPagedList<AspNetMvc_Phonebook.Models.Contact>
+@using PagedList.Mvc;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Index";
@@ -6,21 +9,21 @@
 
 <h2>Index</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Index", "Home", FormMethod.Get))
 {
     <p>
-        Find by name:
-        <input type="text" name="SearchString" id="SearchString" placeholder="Search phonebook..." />
+        Найти по номеру телефона:
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
         <input type="submit" value="Search" placeholder="Search value" />
     </p>
 }
 
 <table class="table">
     <tr>
-        <th>@Html.ActionLink(Html.DisplayNameFor(m => m.PhoneNumber).ToString(), "Index", new { sortOrder = ViewBag.PhoneNumberSortParam })</th>
-        <th>@Html.ActionLink(Html.DisplayNameFor(m => m.FirstName).ToString(), "Index", new { sortOrder = ViewBag.FirstNameSortParam })</th>
-        <th>@Html.ActionLink(Html.DisplayNameFor(m => m.LastName).ToString(), "Index", new { sortOrder = ViewBag.LastNameSortParam })</th>
-        <th>@Html.ActionLink(Html.DisplayNameFor(m => m.Email).ToString(), "Index", new { sortOrder = ViewBag.EmailSortParam })</th>
+        <th>@Html.ActionLink("Номер телефона", "Index", new { sortOrder = ViewBag.PhoneNumberSortParam, currentFilter = ViewBag.CurrentFilter })</th>
+        <th>@Html.ActionLink("Имя", "Index", new { sortOrder = ViewBag.FirstNameSortParam, currentFilter = ViewBag.CurrentFilter })</th>
+        <th>@Html.ActionLink("Фамилия", "Index", new { sortOrder = ViewBag.LastNameSortParam, currentFilter = ViewBag.CurrentFilter })</th>
+        <th>@Html.ActionLink("Электронная почта", "Index", new { sortOrder = ViewBag.EmailSortParam, currentFilter = ViewBag.CurrentFilter })</th>
         <th></th>
     </tr>
     @foreach (AspNetMvc_Phonebook.Models.Contact c in Model)
@@ -34,3 +37,9 @@
         </tr>
     }
 </table>
+
+<br />
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))  

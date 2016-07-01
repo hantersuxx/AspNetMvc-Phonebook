@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace AspNetMvc_Phonebook.Controllers
 {
@@ -12,23 +13,38 @@ namespace AspNetMvc_Phonebook.Controllers
         PhonebookContext db = new PhonebookContext();
 
         // GET: Home
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            ViewBag.PhoneNumberSortParam = String.IsNullOrEmpty(sortOrder) ? "phoneNumber_desc" : "phoneNumber";
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.PhoneNumberSortParam = String.IsNullOrEmpty(sortOrder) ? "phoneNumber_desc" : "";
             ViewBag.FirstNameSortParam = sortOrder == "firstName" ? "firstName_desc" : "firstName";
             ViewBag.LastNameSortParam = sortOrder == "lastName" ? "lastName_desc" : "lastName";
             ViewBag.EmailSortParam = sortOrder == "email" ? "email_desc" : "email";
 
-            ViewBag.CurrentSort = sortOrder;
+            //if the search string is changed during paging
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
 
             var contacts = from c in db.Contacts
                            select c;
 
+            //search
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                contacts = contacts.Where(c => c.PhoneNumber.Contains(searchString));
+            }
+
+            //sort
             switch (sortOrder)
             {
-                case "phoneNumber":
-                    contacts = contacts.OrderBy(c => c.PhoneNumber);
-                    break;
                 case "phoneNumber_desc":
                     contacts = contacts.OrderByDescending(c => c.PhoneNumber);
                     break;
@@ -51,11 +67,15 @@ namespace AspNetMvc_Phonebook.Controllers
                     contacts = contacts.OrderByDescending(c => c.Email);
                     break;
                 default:
+                    contacts = contacts.OrderBy(c => c.PhoneNumber);
                     break;
 
             }
 
-            return View(contacts.ToList());
+            int pageSize = 3;
+            //if page is null pageNumber=1
+            int pageNumber = (page ?? 1);
+            return View(contacts.ToPagedList(pageNumber, pageSize));
         }
 
         protected override void Dispose(bool disposing)
