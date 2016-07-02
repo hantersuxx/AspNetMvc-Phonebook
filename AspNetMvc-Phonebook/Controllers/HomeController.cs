@@ -11,11 +11,33 @@ namespace AspNetMvc_Phonebook.Controllers
     public class HomeController : Controller
     {
         PhonebookContext db = new PhonebookContext();
+        List<SelectListItem> searchList;
+
+
+        public HomeController()
+        {
+            searchList = new List<SelectListItem>();
+            SelectListItem option1 = new SelectListItem()
+            {
+                Text = "номеру телефона",
+                Value = "phone",
+                Selected = true
+            };
+            SelectListItem option2 = new SelectListItem()
+            {
+                Text = "имени и фамилии",
+                Value = "name"
+            };
+            searchList.Add(option1);
+            searchList.Add(option2);
+            ViewBag.SearchSelect = searchList;
+        }
 
         // GET: Home
-        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public ActionResult Index(string sortOrder, string searchSelect, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
+            ViewBag.CurrentSelect = searchSelect;
             ViewBag.PhoneNumberSortParam = String.IsNullOrEmpty(sortOrder) ? "phoneNumber_desc" : "";
             ViewBag.FirstNameSortParam = sortOrder == "firstName" ? "firstName_desc" : "firstName";
             ViewBag.LastNameSortParam = sortOrder == "lastName" ? "lastName_desc" : "lastName";
@@ -39,7 +61,15 @@ namespace AspNetMvc_Phonebook.Controllers
             //search
             if (!String.IsNullOrEmpty(searchString))
             {
-                contacts = contacts.Where(c => c.PhoneNumber.Contains(searchString));
+                switch (searchSelect)
+                {
+                    case "phone":
+                        contacts = contacts.Where(c => c.PhoneNumber.Contains(searchString));
+                        break;
+                    case "name":
+                        contacts = contacts.Where(c => c.FirstName.Contains(searchString) || c.LastName.Contains(searchString));
+                        break;
+                }
             }
 
             //sort
@@ -72,7 +102,7 @@ namespace AspNetMvc_Phonebook.Controllers
 
             }
 
-            int pageSize = 3;
+            int pageSize = 5;
             //if page is null pageNumber=1
             int pageNumber = (page ?? 1);
             return View(contacts.ToPagedList(pageNumber, pageSize));

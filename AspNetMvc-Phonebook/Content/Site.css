@@ -16,3 +16,6 @@ textarea {
     max-width: 280px;
 }
 
+.styled-select {
+    display: inline-block;
+}
