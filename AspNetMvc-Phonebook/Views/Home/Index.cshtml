@@ -13,18 +13,18 @@
 {
     <p>
         Найти по
-        @Html.DropDownList("searchSelect")
-        @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { placeholder = "Введите поисковой запрос" })
+        @Html.DropDownList("searchSelect", ViewBag.SearchSelect as List<SelectListItem>)
+        @Html.TextBox("searchString", ViewBag.CurrentSearch as string, new { placeholder = "Введите поисковой запрос" })
         <input type="submit" value="Найти" />
     </p>
 }
 
 <table class="table">
     <tr>
-        <th>@Html.ActionLink("Номер телефона", "Index", new { sortOrder = ViewBag.PhoneNumberSortParam, searchSelect = ViewBag.CurrentSelect, currentFilter = ViewBag.CurrentFilter })</th>
-        <th>@Html.ActionLink("Имя", "Index", new { sortOrder = ViewBag.FirstNameSortParam, searchSelect = ViewBag.CurrentSelect, currentFilter = ViewBag.CurrentFilter })</th>
-        <th>@Html.ActionLink("Фамилия", "Index", new { sortOrder = ViewBag.LastNameSortParam, searchSelect = ViewBag.CurrentSelect, currentFilter = ViewBag.CurrentFilter })</th>
-        <th>@Html.ActionLink("Электронная почта", "Index", new { sortOrder = ViewBag.EmailSortParam, searchSelect = ViewBag.CurrentSelect, currentFilter = ViewBag.CurrentFilter })</th>
+        <th>@Html.ActionLink("Номер телефона", "Index", new { sortOrder = ViewBag.PhoneNumberSortParam, searchSelect = ViewBag.CurrentSelect, searchString = ViewBag.CurrentSearch })</th>
+        <th>@Html.ActionLink("Имя", "Index", new { sortOrder = ViewBag.FirstNameSortParam, searchSelect = ViewBag.CurrentSelect, searchString = ViewBag.CurrentSearch })</th>
+        <th>@Html.ActionLink("Фамилия", "Index", new { sortOrder = ViewBag.LastNameSortParam, searchSelect = ViewBag.CurrentSelect, searchString = ViewBag.CurrentSearch })</th>
+        <th>@Html.ActionLink("Электронная почта", "Index", new { sortOrder = ViewBag.EmailSortParam, searchSelect = ViewBag.CurrentSelect, searchString = ViewBag.CurrentSearch })</th>
         <th></th>
     </tr>
     @foreach (AspNetMvc_Phonebook.Models.Contact c in Model)
@@ -43,4 +43,4 @@
 Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, searchSelect = ViewBag.CurrentSelect, currentFilter = ViewBag.CurrentFilter }))  
+    new { page, sortOrder = ViewBag.CurrentSort, searchSelect = ViewBag.CurrentSelect, searchString = ViewBag.CurrentSearch }))  

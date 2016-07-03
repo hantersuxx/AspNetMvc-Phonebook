@@ -25,7 +25,7 @@ namespace AspNetMvc_Phonebook.Controllers
             };
             SelectListItem option2 = new SelectListItem()
             {
-                Text = "имени и фамилии",
+                Text = "имени или фамилии",
                 Value = "name"
             };
             searchList.Add(option1);
@@ -34,26 +34,15 @@ namespace AspNetMvc_Phonebook.Controllers
         }
 
         // GET: Home
-        public ActionResult Index(string sortOrder, string searchSelect, string currentFilter, string searchString, int? page)
+        public ActionResult Index(string sortOrder, string searchSelect, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.CurrentSelect = searchSelect;
+            ViewBag.CurrentSearch = searchString;
             ViewBag.PhoneNumberSortParam = String.IsNullOrEmpty(sortOrder) ? "phoneNumber_desc" : "";
             ViewBag.FirstNameSortParam = sortOrder == "firstName" ? "firstName_desc" : "firstName";
             ViewBag.LastNameSortParam = sortOrder == "lastName" ? "lastName_desc" : "lastName";
             ViewBag.EmailSortParam = sortOrder == "email" ? "email_desc" : "email";
-
-            //if the search string is changed during paging
-            if (searchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-
-            ViewBag.CurrentFilter = searchString;
 
             var contacts = from c in db.Contacts
                            select c;
