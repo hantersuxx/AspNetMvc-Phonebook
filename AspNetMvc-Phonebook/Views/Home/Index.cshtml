@@ -9,14 +9,25 @@
 @using (Html.BeginForm("Index", "Home", FormMethod.Get))
 {
     <p>
-        Найти по
-        @Html.DropDownList("searchSelect", ViewBag.SearchSelect as List<SelectListItem>)
-        @Html.TextBox("searchString", ViewBag.CurrentSearch as string, new { placeholder = "Введите поисковой запрос" })
-        <input type="submit" value="Найти" />
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="searchString">
+                <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield__expandable-holder">
+                @Html.TextBox("searchString", ViewBag.CurrentSearch as string, new { @class = "mdl-textfield__input", @placeholder = "Введите запроc" })
+            </div>
+        </div>
+        <input type="submit" value="Найти" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" />
+        <div class="mdl-layout-spacer"></div>
+        <div class="mdl-selectfield mdl-js-selectfield">
+            @Html.DropDownList("searchSelect", ViewBag.SearchSelect as List<SelectListItem>, new { @class = "mdl-selectfield__select", @required = "" })
+            <label class="mdl-selectfield__label" for="searchSelect">Найти по</label>
+            <span class="mdl-selectfield__error">Выберите значение</span>
+        </div>
     </p>
 }
 
-<table class="mdl-data-table mdl-js-data-table mdl-shadow--8dp">
+<table class="mdl-data-table mdl-js-data-table">
     <tr>
         <th>@Html.ActionLink("Номер телефона", "Index", new { sortOrder = ViewBag.PhoneNumberSortParam, searchSelect = ViewBag.CurrentSelect, searchString = ViewBag.CurrentSearch })</th>
         <th>@Html.ActionLink("Имя", "Index", new { sortOrder = ViewBag.FirstNameSortParam, searchSelect = ViewBag.CurrentSelect, searchString = ViewBag.CurrentSearch })</th>

@@ -1,21 +1,35 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    font-size: 14px;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+.page-content {
+    margin: 20px auto;
+    text-align: center;
+    min-height: 500px;
+    width: 100%;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+table {
+    margin: 0 auto;
+    width: 100%;
 }
 
-.styled-select {
-    display: inline-block;
+    table tr th, td {
+        font-size: 14px;
+        text-align: center;
+        margin: 0 auto;
+        vertical-align: central;
+    }
+
+a {
+    font-size: 14px;
+    text-decoration: none;
 }
+
+    a:hover {
+        color: #0811c2;
+    }
+
+    a:active {
+        color: #813ea5;
+    }

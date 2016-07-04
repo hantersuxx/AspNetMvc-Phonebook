@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - ASP.NET приложение</title>
     @Styles.Render("~/Content/Reset.css")
+    @Styles.Render("~/Content/Site.css")
     @Styles.Render("~/Content/material.min.css")
+    @Styles.Render("~/Content/mdl-selectfield.min.css")
     @Styles.Render("https://fonts.googleapis.com/icon?family=Material+Icons")
     @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
     @Scripts.Render("~/Scripts/material.min.js")
+    @Scripts.Render("~/Scripts/mdl-selectfield.min.js")
 </head>
 <body>
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout">
         <header class="mdl-layout__header">
             <div class="mdl-layout__header-row">
                 <span class="mdl-layout-title">Phonebook</span>
@@ -35,13 +38,14 @@
             <div class="page-content">
                 @RenderBody()
             </div>
+            <div class="mdl-layout-spacer"></div>
+            <footer class="mdl-mini-footer">
+                <div class="mdl-mini-footer__left-section">
+                    <div class="mdl-logo">&copy; @DateTime.Now.Year - Alexander Joya</div>
+                </div>
+                <div class="mdl-mini-footer__right-section"></div>
+            </footer>
         </main>
-        <footer class="mdl-mini-footer">
-            <div class="mdl-mini-footer__left-section">
-                <div class="mdl-logo">&copy; @DateTime.Now.Year - My ASP.NET Application</div>
-            </div>
-            <div class="mdl-mini-footer__right-section"></div>
-        </footer>
     </div>
 </body>
 </html>

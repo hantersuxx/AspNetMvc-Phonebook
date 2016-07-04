@@ -20,14 +20,14 @@ namespace AspNetMvc_Phonebook.Controllers
             SelectListItem option1 = new SelectListItem()
             {
                 Text = "номеру телефона",
-                Value = "phone",
-                Selected = true
+                Value = "phone"
             };
             SelectListItem option2 = new SelectListItem()
             {
                 Text = "имени или фамилии",
                 Value = "name"
             };
+            searchList.Add(new SelectListItem() { Value = "" });
             searchList.Add(option1);
             searchList.Add(option2);
             ViewBag.SearchSelect = searchList;
@@ -91,7 +91,7 @@ namespace AspNetMvc_Phonebook.Controllers
 
             }
 
-            int pageSize = 10;
+            int pageSize = 20;
             //if page is null pageNumber=1
             int pageNumber = (page ?? 1);
             return View(contacts.ToPagedList(pageNumber, pageSize));
