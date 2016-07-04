@@ -91,7 +91,7 @@ namespace AspNetMvc_Phonebook.Controllers
 
             }
 
-            int pageSize = 5;
+            int pageSize = 10;
             //if page is null pageNumber=1
             int pageNumber = (page ?? 1);
             return View(contacts.ToPagedList(pageNumber, pageSize));

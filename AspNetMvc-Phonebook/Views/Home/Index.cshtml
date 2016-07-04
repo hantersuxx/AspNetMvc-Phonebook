@@ -6,9 +6,6 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Index</h2>
-
 @using (Html.BeginForm("Index", "Home", FormMethod.Get))
 {
     <p>
@@ -19,7 +16,7 @@
     </p>
 }
 
-<table class="table">
+<table class="mdl-data-table mdl-js-data-table mdl-shadow--8dp">
     <tr>
         <th>@Html.ActionLink("Номер телефона", "Index", new { sortOrder = ViewBag.PhoneNumberSortParam, searchSelect = ViewBag.CurrentSelect, searchString = ViewBag.CurrentSearch })</th>
         <th>@Html.ActionLink("Имя", "Index", new { sortOrder = ViewBag.FirstNameSortParam, searchSelect = ViewBag.CurrentSelect, searchString = ViewBag.CurrentSearch })</th>
