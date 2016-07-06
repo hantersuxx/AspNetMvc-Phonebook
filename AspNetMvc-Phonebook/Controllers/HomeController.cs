@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using System.Net;
 
 namespace AspNetMvc_Phonebook.Controllers
 {
@@ -95,6 +96,18 @@ namespace AspNetMvc_Phonebook.Controllers
             //if page is null pageNumber=1
             int pageNumber = (page ?? 1);
             return View(contacts.ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            Contact c = db.Contacts.Find(id);
+            if (id == null || c == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            db.Contacts.Remove(c);
+            db.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
