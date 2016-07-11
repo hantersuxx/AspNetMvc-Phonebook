@@ -100,14 +100,38 @@ namespace AspNetMvc_Phonebook.Controllers
 
         public ActionResult Delete(int? id)
         {
-            Contact c = db.Contacts.Find(id);
-            if (id == null || c == null)
+            var contact = db.Contacts.Find(id);
+            if (id == null || contact == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            db.Contacts.Remove(c);
-            db.SaveChangesAsync();
+            db.Contacts.Remove(contact);
+            db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int? id)
+        {
+            var contact = db.Contacts.Find(id);
+            if (id == null || contact == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            return View(contact);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(int? id, Contact contact)
+        {
+            if(ModelState.IsValid)
+            {
+                db.Entry(contact).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(contact);
         }
 
         protected override void Dispose(bool disposing)

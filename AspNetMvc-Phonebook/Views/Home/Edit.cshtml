@@ -1,0 +1,65 @@
+﻿@model AspNetMvc_Phonebook.Models.Contact
+@{
+    ViewBag.Title = "Редактироать запись";
+}
+
+@using (Html.BeginForm("Edit", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="edit-card mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Редактировать</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+            @Html.HiddenFor(m => m.Id)
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "mdl-textfield__input" })
+                @Html.LabelFor(m => m.PhoneNumber, new { @class = "mdl-textfield__label" })
+                @Html.ValidationMessageFor(m => m.PhoneNumber)
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "mdl-textfield__input" })
+                @Html.LabelFor(m => m.FirstName, new { @class = "mdl-textfield__label" })
+                @Html.ValidationMessageFor(m => m.FirstName)
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                @Html.TextBoxFor(m => m.LastName, new { @class = "mdl-textfield__input" })
+                @Html.LabelFor(m => m.LastName, new { @class = "mdl-textfield__label" })
+                @Html.ValidationMessageFor(m => m.LastName)
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                @Html.TextBoxFor(m => m.Email, new { @class = "mdl-textfield__input" })
+                @Html.LabelFor(m => m.Email, new { @class = "mdl-textfield__label" })
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                    type="submit">
+                Изменить
+            </button>
+        </div>
+        <div class="mdl-card__menu">
+            <a href="/Home/Index" class="mdl-button mdl-js-button mdl-button--accent mdl-button--icon">
+                <i class="material-icons">arrow_back</i>
+            </a>
+        </div>
+    </div>
+}
+
+<style>
+    .edit-card.mdl-card {
+        margin: 0 auto;
+        width: 512px;
+    }
+
+    .edit-card > .mdl-card__title {
+        color: #fff;
+        height: 176px;
+        background: url('../../Images/edit_card.jpg') center / cover;
+    }
+
+    .edit-card > .mdl-card__menu > a {
+        color: #fff;
+    }
+</style>

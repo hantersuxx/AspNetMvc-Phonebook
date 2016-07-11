@@ -5,7 +5,7 @@
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Главная";
 }
 @using (Html.BeginForm("Index", "Home", FormMethod.Get))
 {
@@ -45,19 +45,19 @@
                 <td>@c.LastName</td>
                 <td>@c.Email</td>
                 <td>
-                    <button id="item-@c.Id.ToString()-modify-list"
+                    <button id="item-@c.Id.ToString()-modify-list-button"
                             class="mdl-button mdl-js-button mdl-button--icon">
-                        <i class="material-icons">more_horiz</i>
+                        <i class="material-icons">more_vert</i>
                     </button>
 
-                    <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="item-@c.Id.ToString()-modify-list">
-                        <li class="mdl-menu__item" style="display:inline">
+                    <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="item-@c.Id.ToString()-modify-list-button">
+                        <li class="mdl-menu__item" style="text-align:center;">
                             <a href="/Home/Edit/@c.Id" class="mdl-button mdl-js-button mdl-button--fab mdl-button--icon mdl-button--primary">
                                 <i class="material-icons">edit</i>
                             </a>
                         </li>
-                        <li class="mdl-menu__item" style="display:inline">
-                            <a href="/Home/Delete/@c.Id" class="mdl-button mdl-js-button mdl-button--fab mdl-button--icon mdl-button--primary">
+                        <li class="mdl-menu__item" style="text-align:center;">
+                            <a href="/Home/Delete/@c.Id" class="mdl-button mdl-js-button mdl-button--fab mdl-button--icon mdl-button--primary show-toast-button-delete">
                                 <i class="material-icons">delete</i>
                             </a>
                         </li>
@@ -73,3 +73,20 @@
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, searchSelect = ViewBag.CurrentSelect, searchString = ViewBag.CurrentSearch }))
+
+<div id="toast-snackbar" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button class="mdl-snackbar__action" type="button"></button>
+</div>
+<script>
+    (function () {
+        'use strict';
+        var snackbarContainer = document.querySelector('.mdl-js-snackbar');
+        var showToastButton = document.querySelector('.show-toast-button-delete');
+        showToastButton.addEventListener('click', function () {
+            'use strict';
+            var data = { message: 'Запись удалена', timeout: 10000 };
+            snackbarContainer.MaterialSnackbar.showSnackbar(data);
+        });
+    }());
+</script>
