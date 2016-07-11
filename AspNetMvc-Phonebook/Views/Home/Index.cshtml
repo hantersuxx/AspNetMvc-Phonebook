@@ -27,7 +27,10 @@
         </div>
     </p>
 }
-
+<a href="Home/Add" class="mdl-button mdl-button--primary mdl-js-button mdl-js-ripple-effect">
+    <i class="material-icons">add</i>
+    Добавить новую запись
+</a>
 <div class="table-responsive">
     <table class="mdl-data-table mdl-js-data-table mdl-textfield--full-width" id="phonebookTable">
         <tr>
@@ -52,13 +55,15 @@
 
                     <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="item-@c.Id.ToString()-modify-list-button">
                         <li class="mdl-menu__item" style="text-align:center;">
-                            <a href="/Home/Edit/@c.Id" class="mdl-button mdl-js-button mdl-button--fab mdl-button--icon mdl-button--primary">
+                            <a href="/Home/Edit/@c.Id" class="mdl-button mdl-button--primary mdl-js-button mdl-js-ripple-effect">
                                 <i class="material-icons">edit</i>
+                                Редактировать
                             </a>
                         </li>
                         <li class="mdl-menu__item" style="text-align:center;">
-                            <a href="/Home/Delete/@c.Id" class="mdl-button mdl-js-button mdl-button--fab mdl-button--icon mdl-button--primary show-toast-button-delete">
+                            <a href="/Home/Delete/@c.Id" class="mdl-button mdl-button--primary mdl-js-button mdl-js-ripple-effect">
                                 <i class="material-icons">delete</i>
+                                Удалить
                             </a>
                         </li>
                     </ul>

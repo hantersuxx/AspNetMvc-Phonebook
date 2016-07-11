@@ -134,6 +134,20 @@ namespace AspNetMvc_Phonebook.Controllers
             return View(contact);
         }
 
+        [HttpGet]
+        public ActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Add(Contact contact)
+        {
+            db.Contacts.Add(contact);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

@@ -1,14 +1,14 @@
 ﻿@model AspNetMvc_Phonebook.Models.Contact
 @{
-    ViewBag.Title = "Редактироать запись";
+    ViewBag.Title = "Добавить запись";
 }
 
-@using (Html.BeginForm("Edit", "Home", FormMethod.Post))
+@using (Html.BeginForm("Add", "Home", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     <div class="edit-card mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Редактировать запись</h2>
+            <h2 class="mdl-card__title-text">Добавить запись</h2>
         </div>
         <div class="mdl-card__supporting-text">
             @Html.HiddenFor(m => m.Id)
@@ -36,7 +36,7 @@
         <div class="mdl-card__actions mdl-card--border">
             <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
                     type="submit">
-                Изменить
+                Добавить
             </button>
         </div>
         <div class="mdl-card__menu">
