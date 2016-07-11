@@ -125,7 +125,7 @@ namespace AspNetMvc_Phonebook.Controllers
         [HttpPost]
         public ActionResult Edit(int? id, Contact contact)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 db.Entry(contact).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
@@ -143,9 +143,19 @@ namespace AspNetMvc_Phonebook.Controllers
         [HttpPost]
         public ActionResult Add(Contact contact)
         {
-            db.Contacts.Add(contact);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                var contacts = from c in db.Contacts
+                               where c.PhoneNumber == contact.PhoneNumber
+                               select c;
+                if (contacts.Count() == 0)
+                {
+                    db.Contacts.Add(contact);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            return View(contact);
         }
 
         protected override void Dispose(bool disposing)

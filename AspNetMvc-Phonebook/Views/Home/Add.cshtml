@@ -11,7 +11,6 @@
             <h2 class="mdl-card__title-text">Добавить запись</h2>
         </div>
         <div class="mdl-card__supporting-text">
-            @Html.HiddenFor(m => m.Id)
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "mdl-textfield__input" })
                 @Html.LabelFor(m => m.PhoneNumber, new { @class = "mdl-textfield__label" })
