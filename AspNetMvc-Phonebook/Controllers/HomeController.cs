@@ -34,8 +34,7 @@ namespace AspNetMvc_Phonebook.Controllers
             ViewBag.SearchSelect = searchList;
         }
 
-        // GET: Home
-        public ActionResult Index(string sortOrder, string searchSelect, string searchString, int? page)
+        public ActionResult DisplayTable(string sortOrder, string searchSelect, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.CurrentSelect = searchSelect;
@@ -92,10 +91,16 @@ namespace AspNetMvc_Phonebook.Controllers
 
             }
 
-            int pageSize = 20;
+            int pageSize = 15;
             //if page is null pageNumber=1
             int pageNumber = (page ?? 1);
-            return View(contacts.ToPagedList(pageNumber, pageSize));
+            return PartialView(contacts.ToPagedList(pageNumber, pageSize));
+        }
+
+        // GET: Home
+        public ActionResult Index()
+        {
+            return View();
         }
 
         public ActionResult Delete(int? id)

@@ -1,13 +1,8 @@
-﻿@model PagedList.IPagedList<AspNetMvc_Phonebook.Models.Contact>
-@using PagedList.Mvc;
-
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-<link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-
-@{
+﻿@{
     ViewBag.Title = "Главная";
 }
-@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+
+@using (Ajax.BeginForm("DisplayTable", "Home", new AjaxOptions { UpdateTargetId = "table-wrapper" }))
 {
     <p>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
@@ -27,57 +22,13 @@
         </div>
     </p>
 }
+
 <a href="Home/Add" class="mdl-button mdl-button--primary mdl-js-button mdl-js-ripple-effect">
     <i class="material-icons">add</i>
     Добавить новую запись
 </a>
-<div class="table-responsive">
-    <table class="mdl-data-table mdl-js-data-table mdl-textfield--full-width" id="phonebookTable">
-        <tr>
-            <th>@Html.ActionLink("Номер телефона", "Index", new { sortOrder = ViewBag.PhoneNumberSortParam, searchSelect = ViewBag.CurrentSelect, searchString = ViewBag.CurrentSearch })</th>
-            <th>@Html.ActionLink("Имя", "Index", new { sortOrder = ViewBag.FirstNameSortParam, searchSelect = ViewBag.CurrentSelect, searchString = ViewBag.CurrentSearch })</th>
-            <th>@Html.ActionLink("Фамилия", "Index", new { sortOrder = ViewBag.LastNameSortParam, searchSelect = ViewBag.CurrentSelect, searchString = ViewBag.CurrentSearch })</th>
-            <th>@Html.ActionLink("Электронная почта", "Index", new { sortOrder = ViewBag.EmailSortParam, searchSelect = ViewBag.CurrentSelect, searchString = ViewBag.CurrentSearch })</th>
-            <th></th>
-        </tr>
-        @foreach (AspNetMvc_Phonebook.Models.Contact c in Model)
-        {
-            <tr>
-                <td>@c.PhoneNumber</td>
-                <td>@c.FirstName</td>
-                <td>@c.LastName</td>
-                <td>@c.Email</td>
-                <td>
-                    <button id="item-@c.Id.ToString()-modify-list-button"
-                            class="mdl-button mdl-js-button mdl-button--icon">
-                        <i class="material-icons">more_vert</i>
-                    </button>
 
-                    <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="item-@c.Id.ToString()-modify-list-button">
-                        <li class="mdl-menu__item" style="text-align:center;">
-                            <a href="/Home/Edit/@c.Id" class="mdl-button mdl-button--primary mdl-js-button mdl-js-ripple-effect">
-                                <i class="material-icons">edit</i>
-                                Редактировать
-                            </a>
-                        </li>
-                        <li class="mdl-menu__item" style="text-align:center;">
-                            <a href="/Home/Delete/@c.Id" class="mdl-button mdl-button--primary mdl-js-button mdl-js-ripple-effect">
-                                <i class="material-icons">delete</i>
-                                Удалить
-                            </a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        }
-    </table>
-</div>
-
-<br />
-Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
-
-@Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, searchSelect = ViewBag.CurrentSelect, searchString = ViewBag.CurrentSearch }))
+@Html.Action("DisplayTable", "Home")
 
 <div id="toast-snackbar" class="mdl-js-snackbar mdl-snackbar">
     <div class="mdl-snackbar__text"></div>
