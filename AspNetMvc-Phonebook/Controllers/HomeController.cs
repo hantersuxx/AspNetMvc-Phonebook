@@ -128,7 +128,7 @@ namespace AspNetMvc_Phonebook.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(int? id, Contact contact)
+        public ActionResult Edit(Contact contact)
         {
             if (ModelState.IsValid)
             {
@@ -150,10 +150,7 @@ namespace AspNetMvc_Phonebook.Controllers
         {
             if (ModelState.IsValid)
             {
-                var contacts = from c in db.Contacts
-                               where c.PhoneNumber == contact.PhoneNumber
-                               select c;
-                if (contacts.Count() == 0)
+                if (Matches(contact) == 0)
                 {
                     db.Contacts.Add(contact);
                     db.SaveChanges();
@@ -161,6 +158,14 @@ namespace AspNetMvc_Phonebook.Controllers
                 }
             }
             return View(contact);
+        }
+
+        private int? Matches(Contact contact)
+        {
+            var contacts = from c in db.Contacts
+                           where c.PhoneNumber == contact.PhoneNumber
+                           select c;
+            return contacts.Count();
         }
 
         protected override void Dispose(bool disposing)
