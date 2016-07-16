@@ -5,28 +5,28 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
-<div id="table-wrapper" class="table-responsive">
+<div id="table-layout" class="table-responsive">
     <table class="mdl-data-table mdl-js-data-table mdl-textfield--full-width">
         <tr>
             <th>
                 @Ajax.ActionLink("Номер телефона", "DisplayTable",
                new { sortOrder = ViewBag.PhoneNumberSortParam, searchSelect = ViewBag.CurrentSelect, searchString = ViewBag.CurrentSearch },
-               new AjaxOptions { UpdateTargetId = "table-wrapper" })
+               new AjaxOptions { UpdateTargetId = "table-layout" })
             </th>
             <th>
                 @Ajax.ActionLink("Имя", "DisplayTable",
                new { sortOrder = ViewBag.FirstNameSortParam, searchSelect = ViewBag.CurrentSelect, searchString = ViewBag.CurrentSearch },
-               new AjaxOptions { UpdateTargetId = "table-wrapper" })
+               new AjaxOptions { UpdateTargetId = "table-layout" })
             </th>
             <th>
                 @Ajax.ActionLink("Фамилия", "DisplayTable",
                new { sortOrder = ViewBag.LastNameSortParam, searchSelect = ViewBag.CurrentSelect, searchString = ViewBag.CurrentSearch },
-               new AjaxOptions { UpdateTargetId = "table-wrapper" })
+               new AjaxOptions { UpdateTargetId = "table-layout" })
             </th>
             <th>
                 @Ajax.ActionLink("Электронная почта", "DisplayTable",
                new { sortOrder = ViewBag.EmailSortParam, searchSelect = ViewBag.CurrentSelect, searchString = ViewBag.CurrentSearch },
-               new AjaxOptions { UpdateTargetId = "table-wrapper" })
+               new AjaxOptions { UpdateTargetId = "table-layout" })
             </th>
             <th></th>
         </tr>
@@ -39,25 +39,9 @@
                 <td>@c.LastName</td>
                 <td>@c.Email</td>
                 <td>
-                    <button id="item-@c.Id.ToString()-modify-list-button"
-                            class="mdl-button mdl-js-button mdl-button--icon">
-                        <i class="material-icons">more_vert</i>
-                    </button>
-
-                    <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="item-@c.Id.ToString()-modify-list-button">
-                        <li class="mdl-menu__item" style="text-align:center;">
-                            <a href="/Home/Edit/@c.Id" class="mdl-button mdl-button--primary mdl-js-button mdl-js-ripple-effect">
-                                <i class="material-icons">edit</i>
-                                Редактировать
-                            </a>
-                        </li>
-                        <li class="mdl-menu__item" style="text-align:center;">
-                            <a href="/Home/Delete/@c.Id" class="mdl-button mdl-button--primary mdl-js-button mdl-js-ripple-effect">
-                                <i class="material-icons">delete</i>
-                                Удалить
-                            </a>
-                        </li>
-                    </ul>
+                    <a href="/Home/Actions/@c.Id" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
+                        <i class="material-icons">settings</i>
+                    </a>
                 </td>
             </tr>
         }
@@ -68,5 +52,5 @@
 
     @Html.PagedListPager(Model, page => Url.Action("DisplayTable",
     new { page, sortOrder = ViewBag.CurrentSort, searchSelect = ViewBag.CurrentSelect, searchString = ViewBag.CurrentSearch }),
-    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "table-wrapper" }))
+    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "table-layout" }))
 </div>

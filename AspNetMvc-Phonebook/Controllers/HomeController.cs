@@ -97,6 +97,16 @@ namespace AspNetMvc_Phonebook.Controllers
             return PartialView(contacts.ToPagedList(pageNumber, pageSize));
         }
 
+        [HttpGet]
+        public ActionResult Actions(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return View(id);
+        }
+
         // GET: Home
         public ActionResult Index()
         {

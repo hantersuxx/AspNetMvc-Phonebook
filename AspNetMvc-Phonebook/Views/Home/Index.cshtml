@@ -2,9 +2,14 @@
     ViewBag.Title = "Главная";
 }
 
-@using (Ajax.BeginForm("DisplayTable", "Home", new AjaxOptions { UpdateTargetId = "table-wrapper" }))
+@using (Ajax.BeginForm("DisplayTable", "Home", new AjaxOptions { UpdateTargetId = "table-layout" }))
 {
     <p>
+        <div class="mdl-selectfield mdl-js-selectfield">
+            @Html.DropDownList("searchSelect", ViewBag.SearchSelect as List<SelectListItem>, new { @class = "mdl-selectfield__select", @required = "" })
+            <label class="mdl-selectfield__label" for="searchSelect">Найти по</label>
+            <span class="mdl-selectfield__error">Выберите значение</span>
+        </div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
             <label class="mdl-button mdl-js-button mdl-button--icon" for="searchString">
                 <i class="material-icons">search</i>
@@ -14,35 +19,12 @@
             </div>
         </div>
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" type="submit">Найти</button>
-        <div class="mdl-layout-spacer"></div>
-        <div class="mdl-selectfield mdl-js-selectfield">
-            @Html.DropDownList("searchSelect", ViewBag.SearchSelect as List<SelectListItem>, new { @class = "mdl-selectfield__select", @required = "" })
-            <label class="mdl-selectfield__label" for="searchSelect">Найти по</label>
-            <span class="mdl-selectfield__error">Выберите значение</span>
-        </div>
     </p>
 }
-
-<a href="Home/Add" class="mdl-button mdl-button--primary mdl-js-button mdl-js-ripple-effect">
+<div class="mdl-layout-spacer"></div>
+<a href="/Home/Add" class="mdl-button mdl-button--primary mdl-js-button mdl-js-ripple-effect">
     <i class="material-icons">add</i>
     Добавить новую запись
 </a>
-
+<div class="mdl-layout-spacer"></div>
 @Html.Action("DisplayTable", "Home")
-
-<div id="toast-snackbar" class="mdl-js-snackbar mdl-snackbar">
-    <div class="mdl-snackbar__text"></div>
-    <button class="mdl-snackbar__action" type="button"></button>
-</div>
-<script>
-    (function () {
-        'use strict';
-        var snackbarContainer = document.querySelector('.mdl-js-snackbar');
-        var showToastButton = document.querySelector('.show-toast-button-delete');
-        showToastButton.addEventListener('click', function () {
-            'use strict';
-            var data = { message: 'Запись удалена', timeout: 10000 };
-            snackbarContainer.MaterialSnackbar.showSnackbar(data);
-        });
-    }());
-</script>

@@ -1,0 +1,49 @@
+﻿@model int?
+@{
+    ViewBag.Title = "Действия";
+}
+
+@using (Html.BeginForm("Details", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="edit-card mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Действия</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <p style="margin:0 auto;">Выберите действие над контактом</p>
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <a href="/Home/Edit/@Model" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                <i class="material-icons">edit</i>
+                Редактировать
+            </a>
+            <a href="/Home/Delete/@Model" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                <i class="material-icons">delete</i>
+                Удалить
+            </a>
+        </div>
+        <div class="mdl-card__menu">
+            <a href="/Home/Index" class="mdl-button mdl-js-button mdl-button--accent mdl-button--icon">
+                <i class="material-icons">arrow_back</i>
+            </a>
+        </div>
+    </div>
+}
+
+<style>
+    .edit-card.mdl-card {
+        margin: 0 auto;
+        width: 512px;
+    }
+
+    .edit-card > .mdl-card__title {
+        color: #fff;
+        height: 176px;
+        background: url('../../Images/actions-card.jpg') center / cover;
+    }
+
+    .edit-card > .mdl-card__menu > a {
+        color: #fff;
+    }
+</style>
