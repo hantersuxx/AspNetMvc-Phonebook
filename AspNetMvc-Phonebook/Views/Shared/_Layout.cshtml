@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - ASP.NET приложение</title>
+    <title>@ViewBag.Title - ASP.NET Phonebook</title>
     @Styles.Render("~/Content/material.min.css")
     @Styles.Render("~/Content/mdl-selectfield.min.css")
     @Styles.Render("https://fonts.googleapis.com/icon?family=Material+Icons")
@@ -22,7 +22,14 @@
                 <div class="mdl-layout-spacer"></div>
                 <nav class="mdl-navigation">
                     @Html.ActionLink("Главная", "Index", "Home", new { area = "" }, new { @class = "mdl-navigation__link" })
-                    <a class="mdl-navigation__link" href="">Link</a>
+                    @if (User.Identity.Name == "7732155@gmail.com")
+                    {
+                        @Html.ActionLink("Выход", "Logout", "Account", new { area = "" }, new { @class = "mdl-navigation__link" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Вход", "Login", "Account", new { area = "" }, new { @class = "mdl-navigation__link" })
+                    }
                 </nav>
             </div>
         </header>

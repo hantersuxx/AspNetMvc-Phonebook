@@ -1,0 +1,33 @@
+﻿@model AspNetMvc_Phonebook.Models.Register
+@{
+    ViewBag.Title = "Регистрация";
+}
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post))
+{
+    <p>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            @Html.TextBoxFor(m => m.Email, new { @class = "mdl-textfield__input" })
+            @Html.LabelFor(m => m.Email, new { @class = "mdl-textfield__label" })
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+    </p>
+    <p>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            @Html.PasswordFor(m => m.Password, new { @class = "mdl-textfield__input" })
+            @Html.LabelFor(m => m.Password, new { @class = "mdl-textfield__label" })
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+    </p>
+    <p>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            @Html.PasswordFor(m => m.PasswordConfirm, new { @class = "mdl-textfield__input" })
+            @Html.LabelFor(m => m.PasswordConfirm, new { @class = "mdl-textfield__label" })
+            @Html.ValidationMessageFor(m => m.PasswordConfirm)
+        </div>
+    </p>
+    <button class="mdl-button mdl-button--colored mdl-button--raised mdl-js-button mdl-js-ripple-effect"
+            type="submit">
+        Зарегистрировать
+    </button>
+}

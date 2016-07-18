@@ -98,6 +98,7 @@ namespace AspNetMvc_Phonebook.Controllers
         }
 
         [HttpGet]
+        [Authorize(Users = "7732155@gmail.com")]
         public ActionResult Actions(int? id)
         {
             if (id == null)
@@ -113,6 +114,7 @@ namespace AspNetMvc_Phonebook.Controllers
             return View();
         }
 
+        [Authorize(Users = "7732155@gmail.com")]
         public ActionResult Delete(int? id)
         {
             var contact = db.Contacts.Find(id);
@@ -126,6 +128,7 @@ namespace AspNetMvc_Phonebook.Controllers
         }
 
         [HttpGet]
+        [Authorize(Users = "7732155@gmail.com")]
         public ActionResult Edit(int? id)
         {
             var contact = db.Contacts.Find(id);
@@ -138,6 +141,7 @@ namespace AspNetMvc_Phonebook.Controllers
         }
 
         [HttpPost]
+        [Authorize(Users = "7732155@gmail.com")]
         public ActionResult Edit(Contact contact)
         {
             if (ModelState.IsValid)
@@ -150,12 +154,14 @@ namespace AspNetMvc_Phonebook.Controllers
         }
 
         [HttpGet]
+        [Authorize(Users = "7732155@gmail.com")]
         public ActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Users = "7732155@gmail.com")]
         public ActionResult Add(Contact contact)
         {
             if (ModelState.IsValid)

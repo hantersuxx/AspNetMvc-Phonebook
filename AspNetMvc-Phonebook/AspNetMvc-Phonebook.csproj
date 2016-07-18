@@ -185,6 +185,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\IdentityDb.mdf" />
+    <Content Include="App_Data\IdentityDb_log.ldf">
+      <DependentUpon>IdentityDb.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\Phonebook.mdf" />
     <Content Include="App_Data\Phonebook_log.ldf">
       <DependentUpon>Phonebook.mdf</DependentUpon>
@@ -248,7 +252,9 @@
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationUserManager.cs" />
     <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\PhonebookContext.cs" />
+    <Compile Include="Models\Register.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -270,6 +276,8 @@
     <Content Include="Scripts\jquery-3.0.0.min.map" />
     <Content Include="Views\Home\DisplayTable.cshtml" />
     <Content Include="Views\Home\Actions.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -277,9 +285,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Account\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
